@@ -1,0 +1,16 @@
+.table {
+	display: table;   /* Allow the centering to work */
+	margin: 0 auto;
+}
+.pageNumber{
+    margin: 0 auto;
+    align-content: center;
+    padding-right: 10px;
+
+}
+ul#page-numbers {
+	padding-top: 20px;
+	}
+	ul#page-numbers li {
+		display: inline;
+	}
