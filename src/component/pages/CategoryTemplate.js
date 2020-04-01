@@ -4,7 +4,7 @@ import ListMakeup from '../list/ListMakeup'
 import Searchbar from '../Searchbar'
 import LipstickImage from '../../img/lipstick.jpg'
 import '../Makeup.css'
-import { Grid,Paper, FormControl, Container,Typography,Select,InputLabel,MenuItem, NativeSelect } from '@material-ui/core'
+import { Grid,Paper, Button, FormControl, Container,Typography,Select,InputLabel,MenuItem, NativeSelect } from '@material-ui/core'
 
 class CategoryTemplate extends React.Component{
   constructor(){
@@ -31,36 +31,48 @@ class CategoryTemplate extends React.Component{
     })
   }
 
-  handleRequest = async (query) => {
+  handleRequest = async (brands,starRating,tagList) => {
     const props = this.props
 
     const link = props.match.url.substring(1)
     console.log(link)
     const response =  await makeup.get(`/products.json?product_type=${link}`, {
       params: {
-        brand: query
+        brand: brands,
+        rating_greater_than: starRating,
+        product_tags: tagList
       }
     })
 
     this.setState({
-      data: response.data
+      data: response.data,
+      selectedItem: response.data[0]
     })
   }
 
-  componentDidMount = () => {
-    this.handleRequest()
+  selectedProduct = (product) => {
+    this.setState({
+      selectedItem: product
+    })
+    console.log(product)
   }
 
-  // componentDidUpdate = (prevState,prevProps) => {
-  //   if(prevState.active !== this.state.active){
-  //     console.log("active value has changed")
-  //   }
-  // }
+  componentDidMount = () => {
+    this.handleRequest();
+    // this.pageTitle();
+  }
+
+  componentDidUpdate = (prevProps) => {
+    console.log(this.props,prevProps)
+    if(this.props.match.url !== prevProps.match.url){
+      this.handleRequest();
+    }
+  }
 
   handleFilterHighPrice = () => {
     const items = [...this.state.data].sort((a,b) => {
-      if(b.price < a.price) return -1;
-      if(a.price > b.price) return 1;
+      if(Number(b.price) < Number(a.price)) return -1;
+      if(Number(a.price) > Number(b.price)) return 1;
     });
     this.setState({
       data: items,
@@ -71,8 +83,8 @@ class CategoryTemplate extends React.Component{
 
   handleFilterLowPrice = () => {
     const items = [...this.state.data].sort((a,b) => {
-      if(a.price < b.price) return -1;
-      if(b.price > a.price) return 1;
+      if(Number(a.price) < Number(b.price)) return -1;
+      if(Number(b.price) > Number(a.price)) return 1;
     });
     this.setState({
       data: items,
@@ -114,13 +126,22 @@ class CategoryTemplate extends React.Component{
       this.handleFilterHighRating();
     } else if(this.state.active === "Low Rating"){
       this.handleFilterLowRating();
-    } else {
-      this.componentDidMount();
+    // } else if (this.state.active === "") {
+    //   this.componentDidMount();
+    // }
     }
   }
 
+  resetFilters = () => {
+    this.componentDidMount();
+  }
+   
   render(){
     const {currentPage, itemsPerPage, data} = this.state;
+    
+    const title = this.props.match.url.substring(1)
+    const { links } = this.props
+    console.log(title,links)
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -130,6 +151,11 @@ class CategoryTemplate extends React.Component{
     for(let i = 1; i <= Math.ceil(data.length/ itemsPerPage); i++){
       pageNumbers.push(i)
     }
+
+    const titles = title.replace(/(^|_)./g, s => s.slice(-1).toUpperCase())
+    const spaces = titles.replace(/([A-Z])/g, ' $1').trim()
+    console.log(spaces)
+
 
     const renderPageNumbers = pageNumbers.map(number => {
       if(number === currentPage){
@@ -160,28 +186,16 @@ class CategoryTemplate extends React.Component{
     return(
       <Container fixed>
         <Grid item justifycontent="center" style={{textAlign: "center"}}>
-          <img src={LipstickImage} style={{height:"550px", width:"100%"}}></img>
-          <Paper style={{padding: 5}}>
-            <Searchbar submitQuery={this.handleRequest}></Searchbar>
-            <FormControl variant="outlined">
-              <InputLabel htmlFor="outlined-age-native-simple">Price/Rating</InputLabel>
-                  <Select
-                    native
-                    label="Price/Rating"
-                    id="outlined-age-native-simple"
-                    value={this.state.active}
-                    onClick={() => this.changeSelectValue()}
-                    onChange={this.handleChange}
-                  >
-                      <option aria-label="None" value="" />
-                      <option value="High Price">Highest Price First</option>
-                      <option value="Low Price">Lowest Price First</option>
-                      <option value="High Rating">Highest Rating First</option>
-                      <option value="Low Rating">Lowest Rating First</option>
-                  </Select>
-            </FormControl>
-          </Paper>
-            <ListMakeup data={currentItems} />
+          <Typography variant="h2">
+            {spaces}     
+          </Typography>
+          {/* <img src={LipstickImage} style={{height:"550px", width:"100%"}}></img> */}
+            <Searchbar submitQuery={this.handleRequest} 
+                        data={this.state.data}
+                        handleChange={this.handleChange}
+                        changeSelectValue={this.changeSelectValue}
+                        active={this.state.active}></Searchbar>
+            <ListMakeup data={currentItems} selectedProduct={this.selectedProduct}/>
             <div className="table">
               <ul id="page-numbers">
               {/* <Pagination count={pageNumbers)} 

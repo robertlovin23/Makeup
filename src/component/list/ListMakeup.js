@@ -6,11 +6,11 @@ import ItemMakeup from '../list/ItemMakeup'
 class ListMakeup extends React.Component{
 
     render(){
-        const { data } = this.props
+        const { data,selectedProduct } = this.props
         const response = data.map((item,i) => {
             return(
                 <Grid item xs={3} key={i}>
-                    <ItemMakeup item={item}/>
+                    <ItemMakeup item={item} selectedProduct={selectedProduct}/>
                 </Grid>
             )
         })
