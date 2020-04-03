@@ -1,6 +1,6 @@
 import React from 'react'
 import makeup from '../../api/makeup'
-import { Grid, Paper, FormControl, Button, Container,Typography,Select,InputLabel,MenuItem, NativeSelect } from '@material-ui/core'
+import { Grid, CircularProgress, Paper, FormControl, Button, Container,Typography,Select,InputLabel,MenuItem, NativeSelect } from '@material-ui/core'
 
 
 class ProductTemplate extends React.Component {
@@ -31,16 +31,18 @@ class ProductTemplate extends React.Component {
 
         if(!product){
             return(
-                <div>Loading...</div>
+                <div>
+                    <CircularProgress style={{padding:"300px",alignContent:"center",display:"block"}}/>
+                </div>
             )
         } else {
             return(
-                <div>
-                    <Typography variant="h2" style={{textAlign: "center",paddingTop:"10px"}}>
+                <div style={{paddingTop:"20px",paddingBottom:"20px"}}>
+                    <Typography variant="h3" style={{textAlign: "center"}}>
                         {product.name}
                     </Typography>
                     <Container spacing={3}>
-                        <Grid item xs={3}>
+                        <Grid item xs={12} sm={3}>
                             <img src={product.image_link} alt={product.name} style={{width:"100%", height:"250px"}}></img>
                                 <Typography variant="subtitle2">Brand: {product.brand}</Typography>
                             <br/>

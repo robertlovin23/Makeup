@@ -14,3 +14,62 @@ ul#page-numbers {
 	ul#page-numbers li {
 		display: inline;
 	}
+.selectWidth{
+	padding-right: 15px!important;
+	width: 200px;
+}
+.buttons{
+	display:block;
+	padding:10px;
+}
+.splashImage{
+	height: 650px;
+	width: 100%;
+}
+.logo{
+	padding-top:150px;
+	height: 300px;
+	width: 400px;
+}
+.footerText{
+	display: inline-block;
+}
+@media (max-width: 1280px){
+	.selectWidth{
+		display: block;
+		width: 400px;
+		padding-right: 0px;
+		margin-bottom: 10px!important;
+	}
+	.buttons{
+		display: inline-block;
+		margin-right: 15px;
+	}
+	.splashImage{
+		height: 300px;
+	}
+	.logo{
+		padding-top: 50px;
+		height:200px;
+		width: 300px;
+		margin: 0 auto;
+	}
+}
+
+@media (max-width: 450px){
+	.selectWidth{
+		width:300px;
+	}
+	.splashImage{
+		height: 300px;
+	}
+	.logo{
+		padding-top: 25px;
+	}
+}
+
+@media (max-width: 350px){
+	.selectWidth{
+		width:250px;
+	}
+}

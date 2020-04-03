@@ -154,6 +154,7 @@ class CategoryTemplate extends React.Component{
 
     const titles = title.replace(/(^|_)./g, s => s.slice(-1).toUpperCase())
     const spaces = titles.replace(/([A-Z])/g, ' $1').trim()
+
     console.log(spaces)
 
 
@@ -184,17 +185,21 @@ class CategoryTemplate extends React.Component{
       }
     })
     return(
-      <Container fixed>
+      <Container fixed style={{padding:"20px 20px"}}>
         <Grid item justifycontent="center" style={{textAlign: "center"}}>
-          <Typography variant="h2">
+          <Typography variant="h2" style={{paddingBottom:"20px"}}>
             {spaces}     
           </Typography>
+
           {/* <img src={LipstickImage} style={{height:"550px", width:"100%"}}></img> */}
             <Searchbar submitQuery={this.handleRequest} 
                         data={this.state.data}
                         handleChange={this.handleChange}
                         changeSelectValue={this.changeSelectValue}
                         active={this.state.active}></Searchbar>
+            <Typography variant="subtitle2" style={{float:"left"}}>
+              {data.length} results
+            </Typography>
             <ListMakeup data={currentItems} selectedProduct={this.selectedProduct}/>
             <div className="table">
               <ul id="page-numbers">

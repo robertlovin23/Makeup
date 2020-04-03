@@ -5,7 +5,7 @@ import ListMakeup from '../list/ListMakeup'
 import Searchbar from '../Searchbar'
 import '../Makeup.css'
 import Lipstick from '../../img/lipstick.jpg'
-import { Grid, GridList,GridListTile,GridListTileBar, Paper, FormControl, Container,Typography,Select,InputLabel,MenuItem, NativeSelect } from '@material-ui/core'
+import { Grid, GridList,GridListTile,GridListTileBar, Button, Paper, FormControl, Container,Typography,Select,InputLabel,MenuItem, NativeSelect } from '@material-ui/core'
 
 class Home extends React.Component{
     constructor(){
@@ -48,14 +48,21 @@ class Home extends React.Component{
     render(){
         return(
             <Grid item justifycontent="center" style={{textAlign: "center"}}>   
-                <img src={MainPhoto} style={{height:"650px", width:"100%"}}></img>
-                    <Typography variant="h2" gutterBottom style={{paddingTop:"25px"}}>
+                <div style={{backgroundImage: `url(${MainPhoto})`}} class="splashImage">
+                    <img src={"https://fontmeme.com/permalink/200403/fcd6f19ea287342917008a3500b6e25f.png"} class="logo"/> 
+                    <Typography variant="h3" gutterBottom style={{color:"pink"}}>
+                        Find Your Glam
+                    </Typography>   
+                </div>
+                    <Typography variant="h4" gutterBottom style={{paddingTop:"50px"}}>
                         Some of Our 5 Star Products
                     </Typography>
-                    <Container style={{justifycontent:"center", paddingBottom:"25px"}}>
-                        <GridList  spacing={15} cellHeight={250} style={{height:"500px",width:"100%"}} cols={4}>
+
+                    <Container style={{justifycontent:"center", paddingBottom:"50px"}}>
+                        <GridList  spacing={15} cellHeight={200} rows={2} style={{height:"400px",width:"100%"}} cols={3}>
                         {
                             this.state.highRated.map((rate) => {
+                                console.log(rate.rating)
                                 return(
                                     <GridListTile style={{borderRadius:"25"}} key={rate.image_link}>
                                         <img src={rate.image_link} alt={rate.name} />
@@ -68,11 +75,11 @@ class Home extends React.Component{
                         }
                         </GridList>
                     </Container>
-                    <Grid item xs={12} style={{backgroundColor:"pink"}}>
-                        <Typography variant="h2" gutterBottom style={{paddingTop:"20px"}}>
+                    <Grid item xs={12} style={{backgroundColor:"pink", paddingTop:"50px", paddingBottom:"50px"}}>
+                        <Typography variant="h4" gutterBottom>
                             We support different types of products to accomodate your skin!
                         </Typography>
-                        <Grid item xs={8} style={{margin:"0 auto",paddingBottom:"25px"}}>
+                        <Grid item xs={8} style={{margin:"0 auto"}}>
                             <Typography variant="body1" gutterBottom style={{textAlign:"left"}}>
                                 We want to recommend you the best products and allow you to compare
                                 products to each other so that you know what is best for your skin. We 
@@ -86,11 +93,11 @@ class Home extends React.Component{
                         </Grid>
                     </Grid>
                     <Grid container spacing="3">
-                        <Grid item xs={6}>
+                        <Grid item xs={12} sm={6}>
                             <img src={Lipstick} style={{width:"100%"}}></img>
                         </Grid>
-                        <Grid item xs={6}>
-                            <Typography variant="h3" style={{paddingTop:"50px"}}>
+                        <Grid item xs={12} sm={6}>
+                            <Typography variant="h4" class="descTitle" style={{paddingTop:"50px"}}>
                                 How we Roll
                                 <Typography variant="body1">
                                     Lorem ipsum
@@ -99,11 +106,16 @@ class Home extends React.Component{
                         </Grid>
                     </Grid>
                     <Grid item xs={12} style={{backgroundColor:"pink"}}>
-                        <Typography variant="h3" style={{padding:"50px"}}>
+                        <Typography variant="h4" style={{padding:"50px"}}>
                             Contact Us!
-                            <Typography variant="body1">
-                                Give us a shout! Or just give us suggestions on what we should improve. Feedback is appreciated!
-                            </Typography>
+                            <Grid style={{margin:"0 auto"}} item xs={8}>
+                                <Typography variant="body1">
+                                    Give us a shout! Or just give us suggestions on what we should improve. Feedback is appreciated!
+                                </Typography>
+                            </Grid>
+                                <Button variant="contained" color="primary">
+                                    Contact!
+                                </Button>
                         </Typography>
 
                     </Grid>

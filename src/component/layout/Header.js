@@ -39,7 +39,9 @@ class Header extends React.Component {
                             <MenuIcon/>
                         </IconButton>
                         <Typography variant="h6" color="inherit">
-                            <Link to="/">GirlyPop</Link>
+                            <Link to="/">
+                                <img src={"https://fontmeme.com/permalink/200403/fcd6f19ea287342917008a3500b6e25f.png"} style={{height:"50px", width:"100px"}}/>
+                            </Link>
                         </Typography>
                     </Toolbar>
             </AppBar>
@@ -54,12 +56,17 @@ class Header extends React.Component {
                     </IconButton>
                 </div>
                 <div style={{marginLeft:"70px",marginRight:"50px"}}>
+                        <Typography variant="h6">
+                                <Link to={`/`} style={{textDecoration:"none"}}>
+                                    Home
+                                </Link>
+                        </Typography>
                     {
                         links.map((link,i) => {
 
                             return(
-                            <Typography variant="h6">
-                                <Link key={i} to={`/${link.name}`} children={<CategoryTemplate/>}>
+                            <Typography variant="h6" >
+                                <Link style={{textDecoration:"none"}} key={i} to={`/${link.name}`} children={<CategoryTemplate/>}>
                                     {link.linkName}
                                 </Link>
                             </Typography>

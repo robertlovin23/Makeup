@@ -1,5 +1,6 @@
 import React from 'react'
-import { Grid,Paper,Select,FormControl,InputLabel,TextField, Container } from '@material-ui/core'
+import '../component/Makeup.css'
+import { Grid, Paper, Button, Select,FormControl,InputLabel,TextField, Container } from '@material-ui/core'
 
 class SearchBar extends React.Component{
     state = {
@@ -35,6 +36,20 @@ class SearchBar extends React.Component{
         )
     }
 
+    resetSearch = () => {
+        const { data } = this.props
+        if(!data.length || data.length){
+            this.setState({
+                brands: "",
+                starRating: "",
+                tagList: ""
+            })
+            console.log(this.state.brands,this.state.starRating,this.state.tagList)
+            // this.submitQuery();
+        }
+
+    }
+
 
     render(){
         const { data,changeSelectValue,active,handleChange } = this.props
@@ -57,10 +72,10 @@ class SearchBar extends React.Component{
 
         console.log(unique)
         return(
-        <Grid container style={{margin:"0 auto",justifyContent: "center", paddingTop:"15px"}}>
+        <Grid className="grid-sizes" sm={12} xs={12} style={{margin:"0 auto",justifyContent: "center"}}>
             {/* <form onSubmit={this.submitQuery} style={{width:"100%"}}> */}
             <form onSubmit={this.submitQuery}>
-            <FormControl variant="outlined" style={{paddingRight:"15px"}}>
+            <FormControl className="selectWidth" variant="outlined">
               <InputLabel htmlFor="outlined-age-native-simple">Price/Rating</InputLabel>
                   <Select
                     native
@@ -77,7 +92,7 @@ class SearchBar extends React.Component{
                       <option value="Low Rating">Lowest Rating First</option>
                   </Select>
             </FormControl>
-            <FormControl variant="outlined" style={{paddingRight:"15px"}}>
+            <FormControl className="selectWidth" variant="outlined">
               <InputLabel htmlFor="outlined-age-native-simple">Brands</InputLabel>
                   <Select
                     native
@@ -97,7 +112,7 @@ class SearchBar extends React.Component{
                       }
                   </Select>
             </FormControl>
-            <FormControl variant="outlined" style={{paddingRight:"15px"}}>
+            <FormControl className="selectWidth" variant="outlined">
               <InputLabel htmlFor="outlined-age-native-simple">Rating</InputLabel>
                   <Select
                     native
@@ -107,14 +122,13 @@ class SearchBar extends React.Component{
                     onChange={this.handleRatingChange}
                   >
                     <option aria-label="None" value="" />
-                    <option value="5">5 stars</option>
                     <option value="4">4 stars and above</option>
                     <option value="3">3 stars and above</option>
                     <option value="2">2 stars and above</option>
                     <option value="1">1 star and above</option>
                   </Select>
             </FormControl>
-            <FormControl variant="outlined">
+            <FormControl className="selectWidth" variant="outlined">
               <InputLabel htmlFor="outlined-age-native-simple">Tags</InputLabel>
                   <Select
                     native
@@ -136,9 +150,17 @@ class SearchBar extends React.Component{
                       }
                   </Select>
             </FormControl>
-            <button onSubmit={this.submitQuery}>Submit Filter</button>
+            <div>
+                <div className="buttons">
+                    <button variant="contained" color="primary" type="submit">Submit Filters</button>
+                    {/* <button style={{display:"inline-block"}}>Reset Filters</button> */}
+                </div>
+                <div className="buttons" onClick={this.resetSearch}>
+                    <button variant="contained" color="secondary" >Reset Filters</button>
+                    {/* <button style={{display:"inline-block"}}>Reset Filters</button> */}
+                </div>
+            </div>
             </form>
-            {/* </form> */}
         </Grid>
         )
     }

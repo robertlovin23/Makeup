@@ -63,7 +63,7 @@ class ItemMakeup extends React.Component{
                             {
                                 item.product_colors.map((color,i) => {
                                     return(
-                                        <div class="color" style={{backgroundColor:`${color.hex_value}`, height: "20px", margin: "0 3px 3px 3px", borderRadius: "50%", width:"20px", display:"inline-block", alignContent:"left"}}>
+                                        <div className="color" style={{backgroundColor:`${color.hex_value}`, height: "20px", margin: "0 3px 3px 3px", borderRadius: "50%", width:"20px", display:"inline-block", alignContent:"left"}}>
                                         </div>
                                     )
                                 })
